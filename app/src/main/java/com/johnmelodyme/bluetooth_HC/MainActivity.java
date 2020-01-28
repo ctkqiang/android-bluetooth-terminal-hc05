@@ -1,5 +1,6 @@
 package com.johnmelodyme.bluetooth_HC;
 
+import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
@@ -9,8 +10,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+
+import java.util.ArrayList;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -21,8 +26,13 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
  */
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getName();
+    private int REQUEST_ACCESS_COARSE_LOACTION = 0x1;
     private Context Main = MainActivity.this;
     private BluetoothAdapter bluetoothAdapter;
+    ArrayList<String> ScannedDevice;
+    ArrayList<String> AllDevice;
+    ListView Scanned_device_list;
+
 
     @Override
     public void onStart(){
@@ -35,7 +45,10 @@ public class MainActivity extends AppCompatActivity {
             Log.w(TAG, "Bluetooth" + ":" + "User Device Doesn\'t Support Bluetooth {0}");
         } else {
             if (bluetoothAdapter.isEnabled()){
-                // Ignore
+                // REQUEST USER TO ```ALLOW``` and turn on Location:
+                ActivityCompat.requestPermissions(MainActivity.this, new String[]{
+                        Manifest.permission.ACCESS_COARSE_LOCATION
+                }, REQUEST_ACCESS_COARSE_LOACTION);
                 Log.w(TAG, "Bluetooth" + ":" + "Already on {1}");
             } else {
                 new SweetAlertDialog(Main, SweetAlertDialog.WARNING_TYPE)
@@ -46,6 +59,10 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onClick(SweetAlertDialog sDialog) {
                                 bluetoothAdapter.enable();
+                                // REQUEST USER TO ```ALLOW``` and turn on Location:
+                                ActivityCompat.requestPermissions(MainActivity.this, new String[]{
+                                        Manifest.permission.ACCESS_COARSE_LOCATION
+                                }, REQUEST_ACCESS_COARSE_LOACTION);
                                 Log.w(TAG, "Bluetooth" + ":" + "Enabling Bluetooth {1}");
                                 Log.w(TAG, "Bluetooth" + ":" + "Bluetooth Enabled {1}");
                                 sDialog.dismissWithAnimation();
@@ -76,6 +93,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        ScannedDevice = new ArrayList<>();
+        AllDevice = new ArrayList<>();
+        Scanned_device_list = findViewById(R.id.ListViewSDevice);
+
+        if (AllDevice != null){
+            // Clear Array for Refresh List:
+            AllDevice.clear();
+        }
 
         // TODO :: {Terminal Page :: RECYCLER_VIEW}
     }
@@ -109,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (id == R.id.bluetooth_list){
-            // TODO :: {ListOfscannedDevice} : dialod
+            // TODO :: {ListOfScannedDevice} : dialogue
             return true;
         }
 
