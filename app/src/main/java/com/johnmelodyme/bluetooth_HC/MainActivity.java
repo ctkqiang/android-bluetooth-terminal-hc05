@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> AllDevice;
     ListView Scanned_device_list;
 
-
     @Override
     public void onStart(){
         super.onStart();
