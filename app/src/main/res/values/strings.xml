@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Bluetooth HC 05</string>
+
+    <string name="sourcecode"> Source Code</string>
+    <string name="about_me">About</string>
+    <string name="aboutme">https://johnmelodyme.github.io/</string>
+    <string name="url"></string>
+
+</resources>
