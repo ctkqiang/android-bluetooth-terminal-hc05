@@ -4,6 +4,6 @@
     <string name="sourcecode"> Source Code</string>
     <string name="about_me">About</string>
     <string name="aboutme">https://johnmelodyme.github.io/</string>
-    <string name="url"></string>
+    <string name="url">https://github.com/johnmelodyme/android-bluetooth-terminal-hc05</string>
 
 </resources>
