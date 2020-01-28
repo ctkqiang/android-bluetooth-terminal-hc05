@@ -76,6 +76,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+
+        // TODO :: {Terminal Page :: RECYCLER_VIEW}
     }
 
     @Override
@@ -106,7 +108,17 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
 
+        if (id == R.id.bluetooth_list){
+            // TODO :: {ListOfscannedDevice} : dialod
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        bluetoothAdapter.disable();
+    }
 }
